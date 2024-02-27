@@ -28,7 +28,7 @@ jobs:
 #        with:
 #          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       - name: Configure Datadog Credentials
-        uses: datadog/datadog-action@v2
+        uses: datadog/terraform-datadog-action@v1
         with:
           api-key: ${{ secrets.DD_API_KEY }}
           app-key: ${{ secrets.DD_APP_KEY }}

@@ -1,7 +1,20 @@
-resource "datadog_monitor" "monitor" {
-  name         = var.name
-  type         = "metric alert"
-  query        = "avg(last_5m):sum:system.cpu.idle{*} by {host} < 70"
-  message      = "CPU usage is above 70% for the last 5 minutes"
-  tags         = ["environment:production"]
+resource "datadog_synthetics_test" "test" {
+  name      = var.name
+  type      = var.type
+  subtype   = var.subtype
+  status    = var.status
+  message   = var.message
+  locations = var.locations
+  tags      = var.tags
+
+  options_list {
+    tick_every = var.tick_every
+  }
+}
+terraform {
+  required_providers {
+    datadog = {
+      source = "DataDog/datadog"
+    }
+  }
 }

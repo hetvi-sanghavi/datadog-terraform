@@ -1,0 +1,183 @@
+
+  # module.api_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An API test on example.org"
+      + status     = "live"
+      + subtype    = "http"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # module.browser_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @qa"
+      + monitor_id = (known after apply)
+      + name       = "A Browser test on example.org"
+      + status     = "paused"
+      + tags       = []
+      + type       = "browser"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 3600
+        }
+    }
+
+  # module.dns_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "A DNS test on example.org"
+      + status     = "live"
+      + subtype    = "dns"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # module.monitor.datadog_monitor.monitor will be created
+  + resource "datadog_monitor" "monitor" {
+      + enable_samples      = (known after apply)
+      + evaluation_delay    = (known after apply)
+      + id                  = (known after apply)
+      + include_tags        = true
+      + message             = "CPU usage is above 70% for the last 5 minutes"
+      + name                = "Example Monitor"
+      + new_host_delay      = 300
+      + notify_no_data      = false
+      + query               = "avg(last_5m):sum:system.cpu.idle{*} by {host} < 70"
+      + require_full_window = true
+      + tags                = [
+          + "environment:production",
+        ]
+      + type                = "metric alert"
+    }
+
+  # module.multi_step_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + monitor_id = (known after apply)
+      + name       = "Multistep API test"
+      + status     = "live"
+      + subtype    = "multi"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # module.ssl_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An SSL test on example.org"
+      + status     = "live"
+      + subtype    = "ssl"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # module.tcp_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "A TCP test on example.org"
+      + status     = "live"
+      + subtype    = "tcp"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # module.uptime_test.datadog_synthetics_test.test will be created
+  + resource "datadog_synthetics_test" "test" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An Uptime test on example.org"
+      + status     = "live"
+      + subtype    = "http"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+

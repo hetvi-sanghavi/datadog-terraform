@@ -1,0 +1,373 @@
+Terraform will perform the following actions:
+
+  # datadog_monitor.monitor will be created
+  + resource "datadog_monitor" "monitor" {
+      + enable_samples      = (known after apply)
+      + evaluation_delay    = (known after apply)
+      + id                  = (known after apply)
+      + include_tags        = true
+      + message             = "CPU usage is above 70% for the last 5 minutes"
+      + name                = "Example Monitor"
+      + new_host_delay      = 300
+      + notify_no_data      = false
+      + query               = "avg(last_5m):sum:system.cpu.idle{*} by {host} < 70"
+      + require_full_window = true
+      + tags                = [
+          + "environment:production",
+        ]
+      + type                = "metric alert"
+    }
+
+  # datadog_synthetics_test.test_api will be created
+  + resource "datadog_synthetics_test" "test_api" {
+      + id              = (known after apply)
+      + locations       = [
+          + "aws:eu-central-1",
+        ]
+      + message         = "Notify @pagerduty"
+      + monitor_id      = (known after apply)
+      + name            = "An API test on example.org"
+      + request_headers = {
+          + "Authentication" = "Token: 1234566789"
+          + "Content-Type"   = "application/json"
+        }
+      + status          = "live"
+      + subtype         = "http"
+      + tags            = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type            = "api"
+
+      + assertion {
+          + operator = "is"
+          + target   = "200"
+          + type     = "statusCode"
+        }
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+
+          + monitor_options {
+              + renotify_interval = 120
+            }
+
+          + retry {
+              + count    = 2
+              + interval = 300
+            }
+        }
+
+      + request_definition {
+          + method  = "GET"
+          + timeout = 60
+          + url     = "https://www.example.org"
+        }
+    }
+
+  # datadog_synthetics_test.test_browser will be created
+  + resource "datadog_synthetics_test" "test_browser" {
+      + device_ids = [
+          + "laptop_large",
+        ]
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @qa"
+      + monitor_id = (known after apply)
+      + name       = "A Browser test on example.org"
+      + status     = "paused"
+      + tags       = []
+      + type       = "browser"
+
+      + browser_step {
+          + name = "Check current url"
+          + type = "assertCurrentUrl"
+
+          + params {
+              + check = "contains"
+              + value = "datadoghq"
+            }
+        }
+      + browser_step {
+          + name = "Test a downloaded file"
+          + type = "assertFileDownload"
+
+          + params {
+              + file = jsonencode(
+                    {
+                      + md5       = "abcdef1234567890"
+                      + nameCheck = {
+                          + type  = "contains"
+                          + value = ".xls"
+                        }
+                      + sizeCheck = {
+                          + type  = "equals"
+                          + value = 1
+                        }
+                    }
+                )
+            }
+        }
+
+      + browser_variable {
+          + example = "597"
+          + name    = "MY_PATTERN_VAR"
+          + pattern = "{{numeric(3)}}"
+          + type    = "text"
+        }
+      + browser_variable {
+          + example = "jd8-afe-ydv.4546132139@synthetics.dtdg.co"
+          + name    = "MY_EMAIL_VAR"
+          + pattern = "jd8-afe-ydv.{{ numeric(10) }}@synthetics.dtdg.co"
+          + type    = "email"
+        }
+      + browser_variable {
+          + id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+          + name = "MY_GLOBAL_VAR"
+          + type = "global"
+        }
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 3600
+        }
+
+      + request_definition {
+          + method  = "GET"
+          + timeout = 60
+          + url     = "https://app.datadoghq.com"
+        }
+    }
+
+  # datadog_synthetics_test.test_dns will be created
+  + resource "datadog_synthetics_test" "test_dns" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An API test on example.org"
+      + status     = "live"
+      + subtype    = "dns"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + assertion {
+          + operator = "is"
+          + property = "A"
+          + target   = "0.0.0.0"
+          + type     = "recordSome"
+        }
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+
+      + request_definition {
+          + host    = "example.org"
+          + timeout = 60
+        }
+    }
+
+  # datadog_synthetics_test.test_multi_step will be created
+  + resource "datadog_synthetics_test" "test_multi_step" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + monitor_id = (known after apply)
+      + name       = "Multistep API test"
+      + status     = "live"
+      + subtype    = "multi"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + api_step {
+          + name            = "An API test on example.org"
+          + request_headers = {
+              + "Authentication" = "Token: 1234566789"
+              + "Content-Type"   = "application/json"
+            }
+          + subtype         = "http"
+
+          + assertion {
+              + operator = "is"
+              + target   = "200"
+              + type     = "statusCode"
+            }
+
+          + request_definition {
+              + method  = "GET"
+              + timeout = 60
+              + url     = "https://example.org"
+            }
+        }
+      + api_step {
+          + name    = "An API test on example.org"
+          + subtype = "http"
+
+          + assertion {
+              + operator = "is"
+              + target   = "200"
+              + type     = "statusCode"
+            }
+
+          + request_definition {
+              + method  = "GET"
+              + timeout = 60
+              + url     = "http://example.org"
+            }
+        }
+
+      + options_list {
+          + accept_self_signed  = true
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+    }
+
+  # datadog_synthetics_test.test_ssl will be created
+  + resource "datadog_synthetics_test" "test_ssl" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An API test on example.org"
+      + status     = "live"
+      + subtype    = "ssl"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + assertion {
+          + operator = "isInMoreThan"
+          + target   = "30"
+          + type     = "certificate"
+        }
+
+      + options_list {
+          + accept_self_signed  = true
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+
+      + request_definition {
+          + host    = "example.org"
+          + port    = 443
+          + timeout = 60
+        }
+    }
+
+  # datadog_synthetics_test.test_tcp will be created
+  + resource "datadog_synthetics_test" "test_tcp" {
+      + id         = (known after apply)
+      + locations  = [
+          + "aws:eu-central-1",
+        ]
+      + message    = "Notify @pagerduty"
+      + monitor_id = (known after apply)
+      + name       = "An API test on example.org"
+      + status     = "live"
+      + subtype    = "tcp"
+      + tags       = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type       = "api"
+
+      + assertion {
+          + operator = "lessThan"
+          + target   = "2000"
+          + type     = "responseTime"
+        }
+
+      + config_variable {
+          + id     = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+          + name   = "MY_GLOBAL_VAR"
+          + secure = false
+          + type   = "global"
+        }
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+        }
+
+      + request_definition {
+          + host    = "example.org"
+          + port    = 443
+          + timeout = 60
+        }
+    }
+
+  # datadog_synthetics_test.test_uptime will be created
+  + resource "datadog_synthetics_test" "test_uptime" {
+      + id              = (known after apply)
+      + locations       = [
+          + "aws:eu-central-1",
+        ]
+      + message         = "Notify @pagerduty"
+      + monitor_id      = (known after apply)
+      + name            = "An Uptime test on example.org"
+      + request_headers = {
+          + "Content-Type" = "application/json"
+        }
+      + status          = "live"
+      + subtype         = "http"
+      + tags            = [
+          + "foo:bar",
+          + "foo",
+          + "env:test",
+        ]
+      + type            = "api"
+
+      + assertion {
+          + operator = "is"
+          + target   = "200"
+          + type     = "statusCode"
+        }
+
+      + options_list {
+          + min_location_failed = 1
+          + tick_every          = 900
+
+          + monitor_options {
+              + renotify_interval = 120
+            }
+
+          + retry {
+              + count    = 2
+              + interval = 300
+            }
+        }
+
+      + request_definition {
+          + method  = "GET"
+          + timeout = 60
+          + url     = "https://www.example.org"
+        }
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────
