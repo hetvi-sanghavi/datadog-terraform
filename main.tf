@@ -38,9 +38,6 @@ resource "datadog_dashboard" "scotchbox_dashboard" {
       grouping = "check"
       group    = "host:scotchbox"
       title    = "Host Availability"
-      time = {
-        live_span = "1h"
-      }
     }
   }
 }
