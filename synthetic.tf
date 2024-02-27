@@ -1,6 +1,6 @@
 resource "datadog_synthetics_global_variable" "global_variable" {
-  name        = "EXAMPLE_VARIABLE"
-  description = "Description of the variable"
+  name        = var.global_variable_name
+  description = var.global_variable_description
   tags        = ["foo:bar", "env:test"]
   value       = "variable-value"
 }

@@ -7,7 +7,10 @@ on:
         description: 'Pass your Monitor name'
         type: string
         required: true
-
+      global_variable_name:
+        description: 'Pass your global variable name'
+        type: string
+        required: true
 env:
   DD_API_KEY: ${{ secrets.DD_API_KEY }}
   DD_APP_KEY: ${{ secrets.DD_APP_KEY }}
@@ -37,7 +40,7 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var monitor_name=${{ inputs.monitor_name }} -out tfplan
+        run: terraform plan -var monitor_name=${{ inputs.monitor_name }} -var global_variable_name==${{ inputs.global_variable_name }} -out tfplan
 
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
       - name: Terraform Apply
