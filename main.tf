@@ -136,11 +136,11 @@ resource "datadog_synthetics_test" "test_tcp" {
     target   = 2000
   }
 
-  config_variable {
-    type = "global"
-    name = "MY_GLOBAL_VAR"
-    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
-  }
+#  config_variable {
+#    type = "global"
+#    name = "MY_GLOBAL_VAR"
+#    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+#  }
 
   options_list {
     tick_every = 900
@@ -294,11 +294,11 @@ resource "datadog_synthetics_test" "test_browser" {
     example = "jd8-afe-ydv.4546132139@synthetics.dtdg.co"
   }
 
-  browser_variable {
-    type = "global"
-    name = "MY_GLOBAL_VAR"
-    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
-  }
+#  browser_variable {
+#    type = "global"
+#    name = "MY_GLOBAL_VAR"
+#    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+#  }
 
   options_list {
     tick_every = 3600
