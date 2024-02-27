@@ -9,5 +9,5 @@ terraform {
 
 # Configure the Datadog provider
 provider "datadog" {
-  api_url  = "https://api.datadoghq.eu/"
+  api_url = "https://api.datadoghq.eu/"
 }
