@@ -10,6 +10,11 @@ on:
 permissions:
   contents: read
 
+
+env:
+  DD_API_KEY: ${{ secrets.DD_API_KEY }}
+  DD_APP_KEY: ${{ secrets.DD_APP_KEY }}
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -22,17 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - name: Setup Terraform
-#        uses: hashicorp/setup-terraform@v1
-#        with:
-#          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Configure Datadog Credentials
-        uses: datadog/terraform-datadog-action@v1
-        with:
-          api-key: ${{ secrets.DD_API_KEY }}
-          app-key: ${{ secrets.DD_APP_KEY }}
-
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
@@ -43,7 +37,7 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -destroy -var ticket_number=${{ inputs.ticket_number }} -input=false -out tfplan
+        run: terraform plan -destroy -var monitor_name=${{ inputs.monitor_name }} -input=false -out tfplan
 
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
       - name: Terraform Destroy
