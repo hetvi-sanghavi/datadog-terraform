@@ -1,8 +1,7 @@
 resource "datadog_synthetics_global_variable" "global_variable" {
-  name        = "TF_GLOBAL_VAR"
+  name        = var.global_variable_name
   description = var.global_variable_description
-  tags        = ["foo:bar", "env:test"]
-  value       = "variable-value"
+  value       = var.global_variable_value
 }
 # Example Usage (Synthetics API test)
 # Create a new Datadog Synthetics API/HTTP test on https://www.example.org

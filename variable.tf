@@ -4,6 +4,9 @@ variable "monitor_name" {
 variable "global_variable_name" {
   type = string
 }
+variable "global_variable_value" {
+  type = string
+}
 variable "global_variable_description" {
   type = string
   default = "Global Variable"

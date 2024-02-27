@@ -12,8 +12,6 @@ resource "datadog_monitor" "cpumonitor" {
   }
 
   include_tags = true
-
-  tags = ["foo:bar", "team:fooBar"]
 }
 
 resource "datadog_dashboard" "scotchbox_dashboard" {
