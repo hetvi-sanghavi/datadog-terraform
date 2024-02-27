@@ -20,7 +20,6 @@ resource "datadog_dashboard" "scotchbox_dashboard" {
   title        = "Scotchbox Dashboard"
   description  = "Created using the Datadog provider in Terraform"
   layout_type  = "ordered"
-  is_read_only = true
 
   widget {
     alert_value_definition {
