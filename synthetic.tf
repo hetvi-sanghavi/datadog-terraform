@@ -1,5 +1,5 @@
 resource "datadog_synthetics_global_variable" "global_variable" {
-  name        = var.global_variable_name
+  name        = "TF_GLOBAL_VAR"
   description = var.global_variable_description
   tags        = ["foo:bar", "env:test"]
   value       = "variable-value"
