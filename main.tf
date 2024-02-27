@@ -1,13 +1,19 @@
 resource "datadog_monitor" "cpumonitor" {
-  name    = var.monitor_name
-  type    = "metric alert"
-  message = "CPU usage alert"
-  query   = "avg(last_1m):avg:system.cpu.system{*} by {host} > 60"
-  monitor_thresholds = {
-    ok       = 20
-    warning  = 50
-    critical = 60
+  name               =  var.monitor_name
+  type               = "metric alert"
+  message            = "Monitor triggered. Notify: @hipchat-channel"
+  escalation_message = "Escalation message @pagerduty"
+
+  query = "avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4"
+
+  monitor_thresholds {
+    warning  = 2
+    critical = 4
   }
+
+  include_tags = true
+
+  tags = ["foo:bar", "team:fooBar"]
 }
 
 resource "datadog_dashboard" "scotchbox_dashboard" {
