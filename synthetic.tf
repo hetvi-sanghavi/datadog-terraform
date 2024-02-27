@@ -1,3 +1,9 @@
+resource "datadog_synthetics_global_variable" "global_variable" {
+  name        = "EXAMPLE_VARIABLE"
+  description = "Description of the variable"
+  tags        = ["foo:bar", "env:test"]
+  value       = "variable-value"
+}
 # Example Usage (Synthetics API test)
 # Create a new Datadog Synthetics API/HTTP test on https://www.example.org
 resource "datadog_synthetics_test" "test_uptime" {
@@ -131,7 +137,7 @@ resource "datadog_synthetics_test" "test_tcp" {
   config_variable {
     type = "global"
     name = "MY_GLOBAL_VAR"
-    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+    id   = local.global_variable
   }
 
   options_list {
@@ -289,7 +295,7 @@ resource "datadog_synthetics_test" "test_browser" {
   browser_variable {
     type = "global"
     name = "MY_GLOBAL_VAR"
-    id   = "76636cd1-82e2-4aeb-9cfe-51366a8198a2"
+    id   = local.global_variable
   }
 
   options_list {
