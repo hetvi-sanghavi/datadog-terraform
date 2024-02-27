@@ -136,8 +136,8 @@ resource "datadog_synthetics_test" "test_tcp" {
 
   config_variable {
     type = "global"
-    name = var.global_variable_name
-    id   = local.global_variable
+    name = local.global_variable_name
+    id   = local.global_variable_id
   }
 
   options_list {
@@ -295,7 +295,7 @@ resource "datadog_synthetics_test" "test_browser" {
   browser_variable {
     type = "global"
     name = var.global_variable_name
-    id   = local.global_variable
+    id   = local.global_variable_id
   }
 
   options_list {

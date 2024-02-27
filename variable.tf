@@ -9,5 +9,6 @@ variable "global_variable_description" {
   default = "Global Variable"
 }
 locals {
-  global_variable = datadog_synthetics_global_variable.global_variable.id
+  global_variable_id   = datadog_synthetics_global_variable.global_variable.id
+  global_variable_name = datadog_synthetics_global_variable.global_variable.name
 }
