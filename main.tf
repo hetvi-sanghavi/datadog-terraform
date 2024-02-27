@@ -1,5 +1,5 @@
 resource "datadog_monitor" "cpumonitor" {
-  name               =  var.monitor_name
+  name               = var.monitor_name
   type               = "metric alert"
   message            = "Monitor triggered. Notify: @hipchat-channel"
   escalation_message = "Escalation message @pagerduty"
@@ -15,9 +15,9 @@ resource "datadog_monitor" "cpumonitor" {
 }
 
 resource "datadog_dashboard" "scotchbox_dashboard" {
-  title        = "Scotchbox Dashboard"
-  description  = "Created using the Datadog provider in Terraform"
-  layout_type  = "ordered"
+  title       = var.dashboard_name
+  description = "Created using the Datadog provider in Terraform"
+  layout_type = "ordered"
 
   widget {
     alert_value_definition {

@@ -8,8 +8,12 @@ variable "global_variable_value" {
   type = string
 }
 variable "global_variable_description" {
-  type = string
+  type    = string
   default = "Global Variable"
+}
+variable "dashboard_name" {
+  type    = string
+  default = "MyDashboard"
 }
 locals {
   global_variable_id   = datadog_synthetics_global_variable.global_variable.id
