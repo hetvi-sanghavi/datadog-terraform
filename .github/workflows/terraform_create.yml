@@ -3,10 +3,6 @@ name: 'Terraform Create'
 on:
   workflow_dispatch:
     inputs:
-      monitor_name:
-        description: 'Pass your Monitor name'
-        type: string
-        required: true
       global_variable_name:
         description: 'Pass your global variable name'
         type: string
@@ -15,6 +11,11 @@ on:
         description: 'Pass your global variable value'
         type: string
         required: true
+      datadog_synthetics_test_name:
+        description: 'Datadog Synthetic test Name'
+        type: string
+        required: false
+        default: "inductiveuniversity.com"
 env:
   DD_API_KEY: ${{ secrets.DD_API_KEY }}
   DD_APP_KEY: ${{ secrets.DD_APP_KEY }}
@@ -40,11 +41,11 @@ jobs:
 
         #Terraform Workspace
       - name: Terraform Workspace
-        run: terraform workspace new ${{ inputs.monitor_name }} || terraform workspace select ${{ inputs.monitor_name }}
+        run: terraform workspace new ${{ inputs.global_variable_name }} || terraform workspace select ${{ inputs.global_variable_name }}
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var monitor_name=${{ inputs.monitor_name }} -var global_variable_name=${{ inputs.global_variable_name }} -var global_variable_value=${{ inputs.global_variable_value }} -out tfplan
+        run: terraform plan -var datadog_synthetics_test_name=${{ inputs.datadog_synthetics_test_name }} -var global_variable_name=${{ inputs.global_variable_name }} -var global_variable_value=${{ inputs.global_variable_value }} -out tfplan
 
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
       - name: Terraform Apply
