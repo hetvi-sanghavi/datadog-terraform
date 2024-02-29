@@ -1,9 +1,3 @@
-resource "datadog_synthetics_global_variable" "global_variable" {
-  name        = var.global_variable_name
-  description = var.global_variable_description
-  value       = var.global_variable_value
-}
-
 resource "datadog_synthetics_test" "synthetics_test" {
   name    = var.datadog_synthetics_test_name
   type    = "api"
