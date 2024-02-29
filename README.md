@@ -26,4 +26,6 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_synthetic"></a> [synthetic](#output\_synthetic) | n/a |
