@@ -4,7 +4,7 @@ resource "datadog_synthetics_test" "synthetics_test" {
   subtype = "http"
   status  = "live"
   message = <<-EOT
-inductiveuniversity.com is currently {{#is_alert}}DOWN{{/is_alert}} {{#is_recovery}}UP{{/is_recovery}}
+${var.datadog_synthetics_test_name} is currently {{#is_alert}}DOWN{{/is_alert}} {{#is_recovery}}UP{{/is_recovery}}
 
 {{#is_alert}} Please review this runbook https://inductiveautomation.atlassian.net/wiki/home {{/is_alert}}
 
@@ -22,11 +22,11 @@ inductiveuniversity.com is currently {{#is_alert}}DOWN{{/is_alert}} {{#is_recove
 EOT
 
   locations = ["aws:us-east-2", "aws:us-west-2"]
-  tags      = ["production", "site:inductiveuniversity.com", "env:inductiveuniversity.com"]
+  tags      = ["production", "site:${var.datadog_synthetics_test_name}", "env:${var.datadog_synthetics_test_name}"]
 
   request_definition {
     method = "GET"
-    url    = "https://inductiveuniversity.com"
+    url    = var.datadog_synthetics_test_name
   }
 
   request_headers = {
